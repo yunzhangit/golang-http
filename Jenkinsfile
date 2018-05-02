@@ -88,7 +88,11 @@ pipeline {
         branch 'master'
       }
       steps {
-        sh 'jx promote -b --timeout 1h --version \$(cat ../../VERSION) --env production'
+        dir ('/home/jenkins/go/src/github.com/yunzhangit/golang-http/charts/golang-http') {
+          container('go') {
+            sh 'jx promote -b --timeout 1h --version \$(cat ../../VERSION) --env production'
+          }
+        }
       }
     }
     post {
