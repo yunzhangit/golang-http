@@ -83,6 +83,14 @@ pipeline {
         }
       }
     }
+    stage('Promote to Production') {
+      when {
+        branch 'master'
+      }
+      steps {
+        sh 'jx promote -b --timeout 1h --version \$(cat ../../VERSION) --env production'
+      }
+    }
     post {
         always {
             cleanWs()
